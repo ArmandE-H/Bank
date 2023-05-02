@@ -65,7 +65,7 @@ while program == True:
   elif '3' in options:
     createAccount()
   elif '4' in options:
-    print(newAmount)
+    print(amount)
   elif '5' in options:
     delete = input("Are you sure? You will not be able to get this account back")
     if delete == 'yes':
