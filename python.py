@@ -1,3 +1,6 @@
+import mysql.connector
+connection = mysql.connector.connect(user = 'root', database = 'bank', password = 'password')
+cursor = connection.cursor()
 program = True
 def numCheck(num):
   num_is_int = False
@@ -16,8 +19,10 @@ print('Hello, welcome to Express Bank of Austin')
 
 
 def createAccount():
-  user = input("Please enter your first name and last name")
+  userFirstInput = input("Please enter your first name ")
+  userLastInput = input("Please enter your last name ")
   passMatch = False
+  user = userFirstInput + userLastInput
 
     # Print pins rules
   print(f"\nHello {user}, insert a pin that is at least 4 digits long: \n")
@@ -42,6 +47,7 @@ def createAccount():
     else:
       print("Pin is too short try again")
       passMatch = False
+      addAccount(userPin, userFirstInput, userLastInput, amount)
 
 createAccount()
 
@@ -77,5 +83,10 @@ while program == True:
     exit()
   else:
     print('Sorry, I am not able to comprehend that, please try again')
+    
+def addAccount( userPin, userFirstInput, userLastInput, amount):
+    addData = (f"INSERT INTO `bank`.`bank_info` (`Account_Pin`, `First_Name`, `Last_Name`, `balance`) VALUES ({userPin}, '{userFirstInput}', '{userLastInput}', '{amount}', '0")
+    cursor.execute(addData)
+    connection.commit()
 
 
